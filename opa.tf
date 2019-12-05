@@ -29,6 +29,12 @@ resource "null_resource" "kube_system_ns_label" {
   provisioner "local-exec" {
     command = "kubectl label ns kube-system 'openpolicyagent.org/webhook=ignore'"
   }
+
+  provisioner "local-exec" {
+    when    = destroy
+    command = "kubectl label ns kube-system 'openpolicyagent.org/webhook-'"
+  }
+
 }
 
 resource "kubernetes_config_map" "policy_default" {

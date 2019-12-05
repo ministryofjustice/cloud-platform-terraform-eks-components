@@ -40,7 +40,7 @@ data "http" "cert-manager-crds" {
 
 resource "null_resource" "cert-manager-crds" {
   provisioner "local-exec" {
-    command = "kubectl apply --validate=false -f https://raw.githubusercontent.com/jetstack/cert-manager/${local.cert-manager-version}/deploy/manifests/00-crds.yaml"
+    command = "kubectl apply --validate=false -f https://raw.githubusercontent.com/jetstack/cert-manager/${local.cert-manager-version}/deploy/manifests/00-crds.yaml && sleep 10"
   }
 
   provisioner "local-exec" {

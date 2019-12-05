@@ -103,7 +103,7 @@ resource "helm_release" "prometheus_operator" {
   name      = "prometheus-operator"
   chart     = "stable/prometheus-operator"
   namespace = kubernetes_namespace.monitoring.id
-  version   = "3.0.0"
+  version   = "8.3.1"
 
   values = [templatefile("${path.module}/templates/prometheus-operator.yaml.tpl", {
     alertmanager_ingress   = local.alertmanager_ingress
@@ -136,6 +136,10 @@ resource "helm_release" "prometheus_operator" {
     command = "kubectl delete svc -l k8s-app=kubelet -n kube-system"
   }
 
+  provisioner "local-exec" {
+    when    = destroy
+    command = "kubectl delete crd prometheuses.monitoring.coreos.com && kubectl delete crd prometheusrules.monitoring.coreos.com && kubectl delete crd servicemonitors.monitoring.coreos.com && kubectl delete crd podmonitors.monitoring.coreos.com && kubectl delete crd alertmanagers.monitoring.coreos.com"
+  }
 }
 
 # Alertmanager and Prometheus proxy

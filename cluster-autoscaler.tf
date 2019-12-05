@@ -28,7 +28,7 @@ resource "helm_release" "cluster_autoscaler" {
 #
 
 resource "aws_iam_role" "clusterautoscaller" {
-  name               = "clusterautoscaller.${data.terraform_remote_state.cluster.outputs.cluster_domain_name}"
+  name               = "autoscaller.${data.terraform_remote_state.cluster.outputs.cluster_domain_name}"
   assume_role_policy = data.aws_iam_policy_document.allow_to_assume.json
 }
 

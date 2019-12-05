@@ -22,4 +22,10 @@ resource "helm_release" "metrics_server" {
     name  = "args[1]"
     value = "--kubelet-preferred-address-types=InternalIP"
   }
+
+  set {
+    name  = "hostNetwork.enabled"
+    value = "true"
+  }
+
 }
