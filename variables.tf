@@ -52,3 +52,9 @@ variable "enable_cluster_autoscaler" {
   type        = bool
   default     = true
 }
+
+variable "enable_opa" {
+  description = "Install Open Policy Agent helm chart"
+  type        = bool
+  default     = true
+}
