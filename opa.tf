@@ -46,7 +46,7 @@ resource "kubernetes_config_map" "policy_default" {
 
   metadata {
     name      = "policy-default"
-    namespace = helm_release.open-policy-agent.namespace
+    namespace = helm_release.open-policy-agent[0].namespace
 
     labels = {
       "openpolicyagent.org/policy" = "rego"
@@ -67,7 +67,7 @@ resource "kubernetes_config_map" "policy_cloud_platform_admission" {
 
   metadata {
     name      = "policy-cloud-platform-admission"
-    namespace = helm_release.open-policy-agent.namespace
+    namespace = helm_release.open-policy-agent[0].namespace
 
     labels = {
       "openpolicyagent.org/policy" = "rego"
@@ -90,7 +90,7 @@ resource "kubernetes_config_map" "policy_ingress_clash" {
 
   metadata {
     name      = "policy-ingress-clash"
-    namespace = helm_release.open-policy-agent.namespace
+    namespace = helm_release.open-policy-agent[0].namespace
 
     labels = {
       "openpolicyagent.org/policy" = "rego"
@@ -111,7 +111,7 @@ resource "kubernetes_config_map" "policy_service_type" {
 
   metadata {
     name      = "policy-service-type"
-    namespace = helm_release.open-policy-agent.namespace
+    namespace = helm_release.open-policy-agent[0].namespace
 
     labels = {
       "openpolicyagent.org/policy" = "rego"
@@ -132,7 +132,7 @@ resource "kubernetes_config_map" "policy_pod_toleration_withkey" {
 
   metadata {
     name      = "policy-pod-toleration-withkey"
-    namespace = helm_release.open-policy-agent.namespace
+    namespace = helm_release.open-policy-agent[0].namespace
 
     labels = {
       "openpolicyagent.org/policy" = "rego"
@@ -155,7 +155,7 @@ resource "kubernetes_config_map" "policy_pod_toleration_withnullkey" {
 
   metadata {
     name      = "policy-pod-toleration-withnullkey"
-    namespace = helm_release.open-policy-agent.namespace
+    namespace = helm_release.open-policy-agent[0].namespace
 
     labels = {
       "openpolicyagent.org/policy" = "rego"
@@ -185,7 +185,7 @@ resource "helm_release" "open-policy-agent" {
   repository = "stable"
   chart      = "opa"
   version    = "1.8.0"
-  namespace  = kubernetes_namespace.opa.id
+  namespace  = kubernetes_namespace.opa[0].id
 
   values = [templatefile("${path.module}/templates/opa.yaml.tpl", {})]
 
