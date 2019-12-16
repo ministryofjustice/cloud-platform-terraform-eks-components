@@ -30,6 +30,10 @@ data "aws_route53_zone" "selected" {
   name = data.terraform_remote_state.cluster.outputs.cluster_domain_name
 }
 
+data "helm_repository" "cloud_platform" {
+  name = "cloud-platform"
+  url  = "https://ministryofjustice.github.io/cloud-platform-helm-charts"
+}
 
 locals {
   live_workspace = "live-1"
