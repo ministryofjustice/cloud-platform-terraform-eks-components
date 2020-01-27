@@ -38,6 +38,12 @@ alertmanager:
           alertname: DeadMansSwitch
         receiver: 'null'
       - match:
+          alertname: KubeVersionMismatch
+        receiver: 'null'
+      - match:
+          alertname: Watchdog
+        receiver: 'null'
+      - match:
           alertname: DeploymentReplicasAreOutdated
         receiver: 'null'
       - match:
