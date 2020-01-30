@@ -58,3 +58,17 @@ variable "enable_opa" {
   type        = bool
   default     = true
 }
+
+variable "cluster_r53_resource_maps" {
+  default = {
+    live-1 = [ "arn:aws:route53:::hostedzone/*" ] 
+    manager = [ "arn:aws:route53:::hostedzone/Z1OWR28V4Q2RTU", "arn:aws:route53:::hostedzone/Z1OWR28V4Q2RTU" ]
+  }
+}
+
+variable "cluster_r53_domainfilters" {
+  default = {
+    live-1 = [ "*" ] 
+    manager = [ "manager.cloud-platform.service.justice.gov.uk.", "cloud-platform.service.justice.gov.uk." ]
+  }
+}

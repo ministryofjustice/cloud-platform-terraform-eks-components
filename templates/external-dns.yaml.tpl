@@ -8,12 +8,15 @@ aws:
   region: eu-west-2
   zoneType: public
 domainFilters:
-  ${domainFilters}
+%{ for d in domainFilters ~}
+  - ${d}
+%{ endfor ~}
 rbac:
   create: true
   apiVersion: v1
   serviceAccountName: default
 txtPrefix: "_external_dns."
+txtOwnerId: ${cluster}
 logLevel: info
 podAnnotations:
   iam.amazonaws.com/role: "${iam_role}"
