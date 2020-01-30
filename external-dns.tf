@@ -15,8 +15,9 @@ resource "helm_release" "external_dns" {
   version   = "2.6.4"
 
   values = [templatefile("${path.module}/templates/external-dns.yaml.tpl", {
-    domainFilters = terraform.workspace == local.live_workspace ? "" : format("- %s", data.terraform_remote_state.cluster.outputs.cluster_domain_name)
+    domainFilters = lookup(var.cluster_r53_domainfilters, terraform.workspace, [ data.terraform_remote_state.cluster.outputs.cluster_domain_name ])
     iam_role      = aws_iam_role.externaldns.name
+    cluster       = terraform.workspace
   })]
 
   depends_on = [
@@ -47,10 +48,19 @@ resource "aws_iam_policy" "externaldns" {
 
 data "aws_iam_policy_document" "externaldns" {
 
+  # Sometimes, depending of the situation (e.g manager cluster) it needs to manage
+  # another hostzones
   statement {
     actions = ["route53:ChangeResourceRecordSets"]
 
-    resources = ["${format("arn:aws:route53:::hostedzone/%s", terraform.workspace == local.live_workspace ? "*" : data.aws_route53_zone.selected.zone_id)}"]
+    resources = lookup(var.cluster_r53_resource_maps, terraform.workspace, [ "arn:aws:route53:::hostedzone/${data.aws_route53_zone.selected.zone_id}" ] ) 
+  }
+
+  # Always it will manage its own hostzone.
+  statement {
+    actions = ["route53:ChangeResourceRecordSets"]
+
+    resources = ["${format("arn:aws:route53:::hostedzone/%s", data.aws_route53_zone.selected.zone_id)}"]
   }
 
   statement {
