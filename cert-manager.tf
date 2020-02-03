@@ -125,10 +125,7 @@ resource "aws_iam_role" "cert_manager" {
 data "aws_iam_policy_document" "cert_manager" {
   statement {
     actions = ["route53:ChangeResourceRecordSets"]
-    resources = [format(
-      "arn:aws:route53:::hostedzone/%s",
-      terraform.workspace == local.live_workspace ? "*" : data.aws_route53_zone.selected.zone_id,
-    )]
+    resources = lookup(var.cluster_r53_resource_maps, terraform.workspace, [ "arn:aws:route53:::hostedzone/${data.aws_route53_zone.selected.zone_id}" ] ) 
   }
 
   statement {
