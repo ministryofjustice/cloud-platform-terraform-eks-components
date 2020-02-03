@@ -62,7 +62,7 @@ variable "enable_opa" {
 variable "cluster_r53_resource_maps" {
   default = {
     live-1 = [ "arn:aws:route53:::hostedzone/*" ] 
-    manager = [ "arn:aws:route53:::hostedzone/Z1OWR28V4Q2RTU", "arn:aws:route53:::hostedzone/Z1OWR28V4Q2RTU" ]
+    manager = [ "arn:aws:route53:::hostedzone/Z1OWR28V4Q2RTU", "arn:aws:route53:::hostedzone/Z22YRW76GPFC1M" ]
   }
 }
 
