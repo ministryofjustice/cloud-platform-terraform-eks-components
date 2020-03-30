@@ -66,6 +66,18 @@ variable "cluster_r53_resource_maps" {
   }
 }
 
+variable "elasticsearch_hosts_maps" {
+  default = {
+    manager = "search-cloud-platform-live-dibidbfud3uww3lpxnhj2jdws4.eu-west-2.es.amazonaws.com"
+  }
+}
+
+variable "elasticsearch_audit_hosts_maps" {
+  default = {
+    manager = "search-cloud-platform-audit-dq5bdnjokj4yt7qozshmifug6e.eu-west-2.es.amazonaws.com"
+  }
+}
+
 variable "cluster_r53_domainfilters" {
   default = {
     live-1  = ["*"]
