@@ -121,7 +121,7 @@ resource "helm_release" "prometheus_operator" {
   depends_on = [
     null_resource.deploy,
     kubernetes_secret.grafana_secret,
-    helm_release.open-policy-agent,
+    module.opa.helm_opa_status,
     helm_release.nginx_ingress_acme,
   ]
 
@@ -167,7 +167,7 @@ resource "helm_release" "prometheus_proxy" {
   depends_on = [
     null_resource.deploy,
     random_id.session_secret,
-    helm_release.open-policy-agent,
+    module.opa.helm_opa_status,
   ]
 
 }
@@ -191,6 +191,6 @@ resource "helm_release" "alertmanager_proxy" {
   depends_on = [
     null_resource.deploy,
     random_id.session_secret,
-    helm_release.open-policy-agent,
+    module.opa.helm_opa_status,
   ]
 }
