@@ -48,7 +48,7 @@ resource "helm_release" "nginx_ingress_acme" {
   depends_on = [
     null_resource.deploy,
     kubernetes_namespace.ingress_controllers,
-    helm_release.open-policy-agent,
+    module.opa.helm_opa_status,
   ]
 }
 
