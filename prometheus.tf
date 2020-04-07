@@ -122,7 +122,6 @@ resource "helm_release" "prometheus_operator" {
     null_resource.deploy,
     kubernetes_secret.grafana_secret,
     module.opa.helm_opa_status,
-    helm_release.nginx_ingress_acme,
   ]
 
   provisioner "local-exec" {
