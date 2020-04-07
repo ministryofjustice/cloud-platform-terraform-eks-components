@@ -151,7 +151,7 @@ resource "helm_release" "prometheus_proxy" {
   name      = "prometheus-proxy"
   namespace = kubernetes_namespace.monitoring.id
   chart     = "stable/oauth2-proxy"
-  version   = "0.9.1"
+  version   = "2.4.1"
 
   values = [templatefile("${path.module}/templates/oauth2-proxy.yaml.tpl", {
     upstream      = "http://prometheus-operator-prometheus:9090"
@@ -175,7 +175,7 @@ resource "helm_release" "alertmanager_proxy" {
   name      = "alertmanager-proxy"
   namespace = "monitoring"
   chart     = "stable/oauth2-proxy"
-  version   = "0.9.1"
+  version   = "2.4.1"
 
   values = [templatefile("${path.module}/templates/oauth2-proxy.yaml.tpl", {
     upstream      = "http://prometheus-operator-alertmanager:9093"
