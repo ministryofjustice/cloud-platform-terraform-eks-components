@@ -155,7 +155,7 @@ resource "helm_release" "prometheus_proxy" {
 
   values = [templatefile("${path.module}/templates/oauth2-proxy.yaml.tpl", {
     upstream      = "http://prometheus-operator-prometheus:9090"
-    hostname      = "${terraform.workspace == local.live_workspace ? format("%s.%s", "prometheus", local.live_domain) : format("%s.%s", "prometheus.apps", data.terraform_remote_state.cluster.outputs.cluster_domain_name)}"
+    hostname      = format("%s.%s", "prometheus.apps", data.terraform_remote_state.cluster.outputs.cluster_domain_name)
     exclude_paths = "^/-/healthy$"
     issuer_url    = data.terraform_remote_state.cluster.outputs.oidc_issuer_url
     client_id     = data.terraform_remote_state.cluster.outputs.oidc_components_client_id
@@ -179,7 +179,7 @@ resource "helm_release" "alertmanager_proxy" {
 
   values = [templatefile("${path.module}/templates/oauth2-proxy.yaml.tpl", {
     upstream      = "http://prometheus-operator-alertmanager:9093"
-    hostname      = "${terraform.workspace == local.live_workspace ? format("%s.%s", "alertmanager", local.live_domain) : format("%s.%s", "alertmanager.apps", data.terraform_remote_state.cluster.outputs.cluster_domain_name)}"
+    hostname      = format("%s.%s", "alertmanager.apps", data.terraform_remote_state.cluster.outputs.cluster_domain_name)
     exclude_paths = "^/-/healthy$"
     issuer_url    = data.terraform_remote_state.cluster.outputs.oidc_issuer_url
     client_id     = data.terraform_remote_state.cluster.outputs.oidc_components_client_id
