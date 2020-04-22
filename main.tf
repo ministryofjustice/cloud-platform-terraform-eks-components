@@ -40,7 +40,7 @@ data "helm_repository" "cloud_platform" {
 }
 
 locals {
-  live_workspace = "live-1"
+  live_workspace = "manager"
   live_domain    = "cloud-platform.service.justice.gov.uk"
 }
 
