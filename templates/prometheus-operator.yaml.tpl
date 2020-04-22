@@ -186,6 +186,11 @@ grafana:
       enabled: true
       label: grafana_datasource
 
+prometheus:
+  enabled: true
+
+  prometheusSpec:
+    externalUrl: "${ prometheus_ingress }"
 
 defaultRules:
   rules:
