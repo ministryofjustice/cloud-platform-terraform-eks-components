@@ -7,7 +7,7 @@ module "monitoring" {
   pagerduty_config             = var.pagerduty_config
 
   enable_ecr_exporter                        = false
-  enable_cloudwatch_exporter                 = true
+  enable_cloudwatch_exporter                 = false
   enable_thanos_helm_chart                   = false
   enable_prometheus_affinity_and_tolerations = false
 
