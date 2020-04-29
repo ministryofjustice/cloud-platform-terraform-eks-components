@@ -10,7 +10,7 @@ module "ingress_controllers" {
   is_live_cluster     = false
 
   # This module requires helm and OPA already deployed
-  dependence_prometheus  = helm_release.prometheus_operator
+  dependence_prometheus  = module.monitoring.helm_prometheus_operator_status
   dependence_deploy      = null_resource.deploy
   dependence_opa         = module.opa.helm_opa_status
   dependence_certmanager = module.cert_manager.helm_cert_manager_status
