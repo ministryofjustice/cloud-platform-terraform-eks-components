@@ -8,7 +8,7 @@ module "cert_manager" {
 
   # This module requires helm and OPA already deployed
   dependence_prometheus = module.monitoring.helm_prometheus_operator_status
-  dependence_deploy     = null_resource.deploy
+  dependence_deploy     = "null_resource.deploy"
   dependence_opa        = module.opa.helm_opa_status
 
   # This section is for EKS
