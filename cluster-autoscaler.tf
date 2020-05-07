@@ -10,7 +10,7 @@ resource "helm_release" "cluster_autoscaler" {
   count = var.enable_cluster_autoscaler ? 1 : 0
 
   name       = "cluster-autoscaler"
-  repository = "stable"
+  repository = data.helm_repository.stable.metadata[0].name
   chart      = "cluster-autoscaler"
 
   namespace = "kube-system"

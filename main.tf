@@ -1,7 +1,5 @@
 provider "helm" {
-  version = "0.10.4"
-  kubernetes {
-  }
+  kubernetes {}
 }
 
 data "terraform_remote_state" "cluster" {
@@ -37,6 +35,11 @@ data "aws_route53_zone" "selected" {
 data "helm_repository" "cloud_platform" {
   name = "cloud-platform"
   url  = "https://ministryofjustice.github.io/cloud-platform-helm-charts"
+}
+
+data "helm_repository" "stable" {
+  name = "stable"
+  url  = "https://kubernetes-charts.storage.googleapis.com"
 }
 
 locals {

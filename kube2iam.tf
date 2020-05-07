@@ -108,14 +108,11 @@ resource "helm_release" "kube2iam" {
   count = var.enable_kube2iam ? 1 : 0
 
   name       = "kube2iam"
-  repository = "stable"
+  repository = data.helm_repository.stable.metadata[0].name
   chart      = "kube2iam"
   namespace  = "kube2iam"
   version    = "1.0.0"
 
   values = [templatefile("${path.module}/templates/kube2iam.yaml.tpl", {})]
 
-  depends_on = [
-    null_resource.deploy,
-  ]
 }
